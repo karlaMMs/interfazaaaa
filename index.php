@@ -103,7 +103,7 @@ $conexion->close();
                             <a class="nav-link" aria-current="page" href="#">ACCESORIOS</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">CONTACTO</a>
+                        <a class="nav-link" aria-current="page" href="chatgpt.php">Chat Bot</a>
                         </li>
                     </ul>
                 </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-11-2023 a las 10:57:52
+-- Tiempo de generación: 25-11-2023 a las 14:52:45
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.0.28
 
@@ -57,7 +57,9 @@ INSERT INTO `carritos` (`carrito_id`, `usuario_id`, `comprado`, `fecha_creacion`
 (16, 1, b'0', '2023-11-25 16:42:03'),
 (17, 1, b'0', '2023-11-25 16:50:45'),
 (18, 1, b'1', '2023-11-25 16:53:19'),
-(19, 2, b'1', '2023-11-25 16:53:55');
+(19, 2, b'0', '2023-11-25 16:53:55'),
+(20, 2, b'0', '2023-11-25 18:07:28'),
+(21, 2, b'1', '2023-11-25 18:07:45');
 
 -- --------------------------------------------------------
 
@@ -82,9 +84,9 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`id`, `nombre`, `descripcion`, `imagen`, `precio`, `rate`, `activo`, `categoria`, `disponibles`) VALUES
-(1, 'Laptop', 'Potente laptop para tus necesidades informáticas', 'laptop.jpg', 999.99, 5, 1, 'Electrónicos', 5),
+(1, 'Laptop Huaweii', 'Potente laptop para tus necesidades informáticas', 'laptop.jpg', 999.99, 5, 1, 'Electrónicos', 0),
 (2, 'Mouse', 'Mouse ergonómico y preciso para tu computadora', 'mouse.jpg', 19.99, 4, 1, 'Accesorios', 0),
-(3, 'Teclado', 'Teclado mecánico con retroiluminación LED', 'teclado.jpg', 49.99, 4, 1, 'Accesorios', 7);
+(3, 'Teclado', 'Teclado mecánico con retroiluminación LED', 'teclado.jpg', 49.99, 4, 1, 'Accesorios', 5);
 
 -- --------------------------------------------------------
 
@@ -105,12 +107,18 @@ CREATE TABLE `productos_en_carrito` (
 --
 
 INSERT INTO `productos_en_carrito` (`id`, `carrito_id`, `producto_id`, `cantidad`, `eliminado`) VALUES
-(1, 12, 3, 5, 0),
+(1, 12, 3, 5, 1),
 (2, 13, 2, 1, 0),
 (3, 14, 2, 1, 0),
 (4, 15, 2, 2, 0),
 (5, 16, 2, 8, 0),
-(6, 17, 2, 2, 0);
+(6, 17, 2, 2, 0),
+(7, 19, 1, 1, 0),
+(8, 19, 3, 2, 1),
+(9, 20, 1, 4, 0),
+(10, 21, 3, 1, 1),
+(11, 21, 3, 1, 1),
+(12, 21, 3, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -125,16 +133,17 @@ CREATE TABLE `users` (
   `email` varchar(120) NOT NULL,
   `user_password` varchar(32) NOT NULL,
   `birthdate` date NOT NULL,
-  `genre` bit(1) NOT NULL
+  `genre` bit(1) NOT NULL,
+  `activo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id_user`, `firstname`, `lastname`, `email`, `user_password`, `birthdate`, `genre`) VALUES
-(1, 'kender', 'mtz', 'kenderwhere@gmail.com', 'Admin123!', '1997-12-12', b'1'),
-(2, 'kender', 'tst', 'kenderwh@gmail.com', 'Admin123!', '1994-12-12', b'1');
+INSERT INTO `users` (`id_user`, `firstname`, `lastname`, `email`, `user_password`, `birthdate`, `genre`, `activo`) VALUES
+(1, 'kender', 'mtz', 'kenderwhere@gmail.com', 'Admin123!', '1997-12-12', b'1', 0),
+(2, 'kender', 'michell', 'kenderwh@gmail.com', 'Admin123!', '1997-12-12', b'1', 0);
 
 --
 -- Índices para tablas volcadas
@@ -174,7 +183,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `carritos`
 --
 ALTER TABLE `carritos`
-  MODIFY `carrito_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `carrito_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
@@ -186,7 +195,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `productos_en_carrito`
 --
 ALTER TABLE `productos_en_carrito`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
