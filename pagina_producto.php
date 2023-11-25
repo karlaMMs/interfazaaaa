@@ -153,19 +153,31 @@ $conexion->close();
                 <div class="col-sm-4">
                     <div class="card rounded">
                         <div class="card-body">
-                            <p class="card-text"><small class="text-muted">Cantidad disponible</small></p>
                             <?php
                                 // Mostrar otros detalles del producto
+                                
                                 echo "<h4 class='card-title'>" . $producto['nombre'] . "</h4>";
-                                echo "<p class='card-text'><small class='text-muted'>" . $producto['categoria'] . "</small></p>";
+                                echo "<p class='card-text'><small class='text-muted'> SKU: " . $producto['id'] . "</small></p>";
+                                echo "<p class='card-text'><small class='text-muted'> Categoría: " . $producto['categoria'] . "</small></p>";
                                 echo "<p class='card-text'>" . $producto['descripcion'] . "</p>";
                                 echo "<h5 class='card-title'>Precio: $" . $producto['precio'] . "</h5>";
+                                echo "<p class='card-title'>Disponibles: <strong>" . $producto['disponibles'] . "</strong> unidades. </p>";
                                 echo "<p class='card-text'>Valoración: " . $producto['rate'] . "</p>";
                             ?>
-                            <div class="row justify-content-center ">
-                                <button class="btn btn_hp my-1">Comprar</button>
-                                <button class="btn btn_hp my-1">Agregar al carrito</button>
-                            </div>
+                             <!-- Verificación de sesión para mostrar los botones -->
+                        <?php
+                        if (isset($_SESSION['id_user'])) {
+                            // Si el usuario ha iniciado sesión, muestra los botones
+                            echo '<div class="row justify-content-center">';
+                            echo '<button class="btn btn_hp my-1">Comprar</button>';
+                            echo '<button class="btn btn_hp my-1" onclick="agregarAlCarrito(' . $id_user . ')">Agregar al carrito</button>';
+                            echo '</div>';
+                        } else {
+                            // Si el usuario no ha iniciado sesión, redirige a la página de inicio de sesión
+                            echo '<p><strong>Inicia sesión para comprar o agregar al carrito</strong></p>';
+                            echo '<a href="login.php"><button class="btn btn_hp my-1">Iniciar Sesión</button></a>';
+                        }
+                        ?>
                         </div>
                     </div>
                 </div>
@@ -204,4 +216,11 @@ $conexion->close();
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
+
+<script>
+function agregarAlCarrito(idUsuario) {
+    // Redirigir a shoppingCart.php con el ID de usuario como parámetro
+    window.location.href = 'shoppingCart.php?id_user=' + idUsuario;
+}
+</script>
 </html>

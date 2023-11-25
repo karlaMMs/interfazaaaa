@@ -28,8 +28,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "INSERT INTO users (firstname, lastname, email, user_password, birthdate, genre) VALUES ('$firstname', '$lastname', '$email', '$password', '$birthdate', '$genre')";
 
         if ($conexion->query($sql) == TRUE) {
-            echo "Usuario registrado con éxito";
-            // Aquí podrías redirigir al usuario a una página de éxito o hacer otras operaciones necesarias después del registro.
+            // Usuario registrado con éxito
+
+            // Obtener el ID del usuario recién registrado
+            $userId = $conexion->insert_id;
+
+            // Insertar en la tabla de carritos
+            $carritoFechaCreacion = date("Y-m-d H:i:s");
+            $insertCarritoQuery = "INSERT INTO carritos (usuario_id, comprado, fecha_creacion) VALUES ('$userId', 'false', '$carritoFechaCreacion')";
+
+            if ($conexion->query($insertCarritoQuery) == TRUE) {
+                header("Location: login.php");
+                exit(); 
+                        } else {
+                echo "Error al crear el carrito: " . $conexion->error;
+            }
         } else {
             echo "Error al registrar el usuario: " . $conexion->error;
         }
