@@ -160,24 +160,36 @@ $conexion->close();
                                 echo "<p class='card-text'><small class='text-muted'> SKU: " . $producto['id'] . "</small></p>";
                                 echo "<p class='card-text'><small class='text-muted'> Categoría: " . $producto['categoria'] . "</small></p>";
                                 echo "<p class='card-text'>" . $producto['descripcion'] . "</p>";
+                                echo "<p class='card-text'>Valoración: " . $producto['rate'] . "</p>";
                                 echo "<h5 class='card-title'>Precio: $" . $producto['precio'] . "</h5>";
                                 echo "<p class='card-title'>Disponibles: <strong>" . $producto['disponibles'] . "</strong> unidades. </p>";
-                                echo "<p class='card-text'>Valoración: " . $producto['rate'] . "</p>";
+
+                                if ($producto['disponibles'] > 0) {
+                                    echo "<div class='form-group'>";
+                                    echo "<label for='cantidad'>Cantidad:</label>";
+                                    echo "<input type='number' class='form-control' id='cantidad' name='cantidad' min='1' max='" . $producto['disponibles'] . "' value='1' style='border: 1px solid #333;'>";
+                                    echo "</div>";
+                                    if (isset($_SESSION['id_user'])) {
+                                        // Si el usuario ha iniciado sesión, muestra los botones
+                                        echo '<div class="row justify-content-center">';
+                                        echo '<button class="btn btn_hp my-1" onclick="agregarAlCarrito(' . $id_user . ', ' . $productoID . ', ' . $producto['disponibles'] . ')">Agregar al carrito</button>';
+                                        echo '</div>';
+                                    } else {
+                                        // Si el usuario no ha iniciado sesión, redirige a la página de inicio de sesión
+                                        echo '<p><strong>Inicia sesión para comprar o agregar al carrito</strong></p>';
+                                        echo '<a href="login.php"><button class="btn btn_hp my-1">Iniciar Sesión</button></a>';
+                                    }
+                                
+                                } else {
+                                    // Si la cantidad disponible es 0, mostrar un mensaje y deshabilitar el botón
+                                    echo "<p><strong><em>¡Este producto volverá pronto!</em></strong></p>";
+                                    echo '<button class="btn btn_hp my-1" disabled>Agregar al carrito</button>';
+                                }
+
+
+                              
                             ?>
-                             <!-- Verificación de sesión para mostrar los botones -->
-                        <?php
-                        if (isset($_SESSION['id_user'])) {
-                            // Si el usuario ha iniciado sesión, muestra los botones
-                            echo '<div class="row justify-content-center">';
-                            echo '<button class="btn btn_hp my-1">Comprar</button>';
-                            echo '<button class="btn btn_hp my-1" onclick="agregarAlCarrito(' . $id_user . ')">Agregar al carrito</button>';
-                            echo '</div>';
-                        } else {
-                            // Si el usuario no ha iniciado sesión, redirige a la página de inicio de sesión
-                            echo '<p><strong>Inicia sesión para comprar o agregar al carrito</strong></p>';
-                            echo '<a href="login.php"><button class="btn btn_hp my-1">Iniciar Sesión</button></a>';
-                        }
-                        ?>
+                      
                         </div>
                     </div>
                 </div>
@@ -218,9 +230,32 @@ $conexion->close();
 </body>
 
 <script>
-function agregarAlCarrito(idUsuario) {
-    // Redirigir a shoppingCart.php con el ID de usuario como parámetro
-    window.location.href = 'shoppingCart.php?id_user=' + idUsuario;
+function agregarAlCarrito(idUsuario, productoID, disponibles) {
+    var cantidadSeleccionada = document.getElementById('cantidad').value;
+
+    if (parseInt(cantidadSeleccionada) <= 0) {
+        alert("¡Error! La cantidad seleccionada debe ser mayor que cero.");
+    } else if (parseInt(cantidadSeleccionada) > disponibles) {
+        alert("¡Error! La cantidad seleccionada es mayor que la cantidad de disponibles.");
+    } else {
+        // Realizar una llamada AJAX para insertar el producto en el carrito
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "agregarAlCarrito.php", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // La operación se completó con éxito, puedes redirigir o realizar otras acciones si es necesario
+                window.location.href = 'shoppingCart.php?id_user=' + idUsuario;
+            }
+        };
+
+        // Enviar los datos al servidor
+        xhr.send("id_user=" + idUsuario + "&producto_id=" + productoID + "&cantidad=" + cantidadSeleccionada);
+    }
 }
 </script>
+
+
+
 </html>

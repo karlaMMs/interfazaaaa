@@ -215,7 +215,10 @@ $conexion->close();
         // Enviar los datos del productoId al servidor
         xhr.send("producto_id=" + productoId);
     }
+</script>
 
+<!-- Agrega este script al final del cuerpo HTML para manejar la solicitud AJAX -->
+<script>
 function procederCompra() {
     // Realizar una solicitud AJAX al servidor
     var xhr = new XMLHttpRequest();
@@ -226,11 +229,10 @@ function procederCompra() {
             if (xhr.status === 200) {
                 // La solicitud fue exitosa, procesar la respuesta del servidor
                 var respuesta = JSON.parse(xhr.responseText);
-                location.reload();
+                
                 if (respuesta.success) {
                     // Muestra un mensaje de éxito y recargar la página
-                    location.reload();
-
+                    window.location.href = 'compra.php';
                 } else {
                     // Muestra un mensaje de error
                     alert("Error al procesar la compra");
@@ -253,6 +255,7 @@ function procederCompra() {
     // Enviar los datos del carritoId y userId al servidor
     xhr.send("carrito_id=" + carritoId + "&user_id=" + userId);
 }
+
 
 </script>
 
