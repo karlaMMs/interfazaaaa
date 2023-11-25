@@ -18,7 +18,7 @@ if (isset($_SESSION['id_user'])) {
         $nombre_usuario = $user_data['firstname'];
 
         // Muestra el alert en JavaScript
-        echo "<script>alert('¡Hola $nombre_usuario!');</script>";
+       // echo "<script>alert('¡Hola $nombre_usuario!');</script>";
 
         // Resto del código de index.php
     } else {
@@ -36,7 +36,7 @@ $conexion->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Principal</title>
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
@@ -51,27 +51,31 @@ $conexion->close();
             </div>
             <div class="col-md-6 ">
                 <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="border: 2px solid #8EB25A;">
                     <button class="btn" type="submit">BUSCAR</button>
                 </form>
             </div>
             <div class="col-md-3">
-                <?php
-                if (isset($_SESSION['id_user'])) {
-                    // Si el usuario ha iniciado sesión, muestra su nombre y un botón de cerrar sesión
-                    echo "<div class='d-flex align-items-center'>";
-                    echo "<a href='perfil.php' class='me-2'><button class='btn' type='button'>¡Hola, $nombre_usuario!</button></a>";
-                    echo "<a href='logout.php' class='me-2'><button class='btn' type='button'> Cerrar Sesión</button>
-                    </a>";
-                    echo "</div>";
-                    
-                } else {
-                    // Si el usuario no ha iniciado sesión, muestra los botones para registrarse e iniciar sesión
-                    echo "<a href='register.php'><button class='btn' type='button'>CREA TU CUENTA</button></a>";
-                    echo "<a href='login.php'><button class='btn' type='button'>INGRESA</button></a>";
-                }
-                ?>
-            </div>
+    <?php
+    if (isset($_SESSION['id_user'])) {
+        // Si el usuario ha iniciado sesión, muestra su nombre y un botón de cerrar sesión
+        echo "<div class='dropdown'>";
+        echo "<a class='btn dropdown-toggle' href='#' role='button' id='dropdownMenuLink' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>¡Hola, $nombre_usuario!</a>";
+        echo "<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>";
+        echo "<a class='dropdown-item' href='perfil.php'>Perfil</a>";
+        echo "<a class='dropdown-item' href='shoppingCart.php'>Carrito</a>";  // Agrega enlaces y ajusta según tus necesidades
+        echo "<a class='dropdown-item' href='historial.php'>Historial</a>"; // Agrega enlaces y ajusta según tus necesidades
+        echo "<div class='dropdown-divider'></div>";
+        echo "<a class='dropdown-item' href='logout.php'>Cerrar Sesión</a>";
+        echo "</div>";
+        echo "</div>";
+    } else {
+        // Si el usuario no ha iniciado sesión, muestra los botones para registrarse e iniciar sesión
+        echo "<a href='register.php'><button class='btn' type='button'>CREA TU CUENTA</button></a>";
+        echo "<a href='login.php'><button class='btn' type='button'>INGRESA</button></a>";
+    }
+    ?>
+</div>
         </div>
     </div>
 
