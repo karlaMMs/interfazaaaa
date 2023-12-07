@@ -49,6 +49,7 @@ $conexion->close();
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css">
 </head>
 
 <body>
@@ -71,19 +72,22 @@ $conexion->close();
                 if (isset($_SESSION['id_user'])) {
                     // Si el usuario ha iniciado sesión, muestra su nombre y un botón de cerrar sesión
                     echo "<div class='dropdown'>";
-                    echo "<a class='btn dropdown-toggle' href='#' role='button' id='dropdownMenuLink' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>¡Hola, $nombre_usuario!</a>";
+                    echo "<a class='btn dropdown-toggle intro-target' href='#' role='button' id='dropdownMenuLink' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>¡Hola, $nombre_usuario!</a>";
                     echo "<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>";
                     echo "<a class='dropdown-item' href='perfil.php'>Perfil</a>";
-                    echo "<a class='dropdown-item' href='shoppingCart.php'>Carrito</a>";  // Agrega enlaces y ajusta según tus necesidades
-                    echo "<a class='dropdown-item' href='historial.php'>Historial</a>"; // Agrega enlaces y ajusta según tus necesidades
+                    echo "<a class='dropdown-item' href='shoppingCart.php'>Carrito</a>";
+                    echo "<a class='dropdown-item' href='historial.php'>Historial</a>";
                     echo "<div class='dropdown-divider'></div>";
                     echo "<a class='dropdown-item' href='logout.php'>Cerrar Sesión</a>";
                     echo "</div>";
                     echo "</div>";
+                    
                 } else {
                     // Si el usuario no ha iniciado sesión, muestra los botones para registrarse e iniciar sesión
+                    echo '<div id="iniciosesion">';
                     echo "<a href='register.php'><button class='btn' type='button'>CREA TU CUENTA</button></a>";
                     echo "<a href='login.php'><button class='btn' type='button'>INGRESA</button></a>";
+                    echo "</div>";
                 }
                 ?>
             </div>
@@ -103,20 +107,13 @@ $conexion->close();
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="#">HIGH PRO EXPERTS</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">PC'S LEGA</a>
-                        </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="#">PRODUCTOS</a>
                         </li>
+                     
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">COMPONENTES</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">ACCESORIOS</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="chatgpt.php">CHATBOT FÁCILC</a>
+                            <a class="nav-link" aria-current="page" href="chatgpt.php">CHATBOT FÁCIL</a>
                         </li>
                     </ul>
                 </div>
@@ -180,7 +177,7 @@ $conexion->close();
         </div>
     </div>
 
-      <div class="container">
+    <div class="container" id="Rated">
         <div class="row">
             <h3 style="text-align: center;">Mejor votados</h3>
 
@@ -221,7 +218,7 @@ $conexion->close();
 
     </div>
     <br><br><br><br><br><br>
-    <div class="container">
+    <div class="container" id="newest">
         <div class="row">
             <h3 style="text-align: center;">Más recientes</h3>
 
@@ -262,6 +259,73 @@ $conexion->close();
 
     </div>
     <script src="bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
+    
+    <?php
+
+    if (isset($_SESSION['id_user'])) {
+        echo <<<HTML
+<script>
+  // Función para simular el clic en el botón que activa el dropdown
+  function abrirDropdown() {
+    document.querySelector('.intro-target').click();
+  }
+
+  introJs().setOptions({
+    steps: [
+      {
+        element: document.querySelector('.intro-target'),
+        intro: '¡Hola! Bienvenido a tu menú desplegable personalizado. Aquí puedes acceder a diferentes opciones, como tu perfil, carrito de compras, historial y cerrar sesión.'
+      },
+      // Agrega más pasos según sea necesario
+      {
+        element: document.querySelector('.intro-target'),
+        intro: 'Haz clic aquí para abrir el menú desplegable.',
+        onbeforeexit: abrirDropdown  // Llama a la función para abrir el dropdown antes de salir del paso
+      }
+    ],
+    prevLabel: 'Atrás',
+    nextLabel: 'Siguiente',
+    doneLabel: 'Terminar'
+  }).start();
+</script>
+HTML;
+
+    } else {
+        echo <<<HTML
+        <script>
+          introJs().setOptions({
+            steps: [
+              {
+                title: "¡Bienvenido a High Pro!",
+                intro: "¡Hola! Estamos emocionados de tenerte aquí. Vamos a guiarte por nuestra página."
+              },
+              {
+                element: document.querySelector("#rated"),
+                intro: "En esta sección, encontrarás los productos mejor valorados. ¡Descubre lo que aman nuestros clientes!",
+                position: "bottom"
+              },
+              {
+                element: document.querySelector("#newest"),
+                intro: "¿Te gustan las novedades? Aquí puedes explorar los productos más recientes en nuestro catálogo. ¡Siempre algo nuevo por descubrir!",
+                position: "bottom"
+              },
+              {
+                element: document.querySelector("#iniciosesion"),
+                intro: "¡Ahora puedes iniciar sesión y explorar aún más!",
+                position: "bottom"
+              }
+            ],
+            dontShowAgain: true,
+            prevLabel: "Atras",
+            nextLabel: "Siguiente",
+            doneLabel: "Terminar"
+          }).start();
+        </script>
+        HTML;
+        
+    }
+    ?>
 </body>
 <footer>
     <br>
