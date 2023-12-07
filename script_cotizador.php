@@ -5,7 +5,30 @@ include "conexion.php";
 $pregunta = $_POST['pregunta'];
 
 // Buscar palabras clave en la pregunta
-$palabras_clave = array("precio", "laptop", "mouse", "teclado", "costo"); // Puedes agregar más palabras clave
+$palabras_clave = array(
+    "precio", "costo", "oferta", "descuento",
+    "laptop", "portatil", "notebook", "computadora",
+    "smartphone", "teléfono", "móvil", "celular",
+    "tableta", "tablet",
+    "cámara", "DSLR", "videocámara", "fotografía",
+    "auriculares", "audífonos", "cascos", "sonido",
+    "monitor", "pantalla", "display", "visualización",
+    "teclado", "raton", "ratón", "mouse", "periférico",
+    "impresora", "printer", "escáner", "multifuncional",
+    "router", "red", "Wi-Fi", "conexión",
+    "altavoces", "parlantes", "audio", "sonido",
+    "disco duro", "almacenamiento", "externo", "memoria",
+    "tarjeta gráfica", "GPU", "componente", "juegos",
+    "proyector", "proyección", "cine en casa", "presentación",
+    "batería externa", "cargador portátil", "energía móvil", "power bank",
+    "smartwatch", "reloj inteligente", "wearable", "actividad física",
+    "cámara de seguridad", "vigilancia", "hogar", "protección",
+    "Gaming", "jugadores", "videojuegos", "entretenimiento",
+    "Apple", "Samsung", "Acer", "HP", "Sony", "Logitech", "Canon", "LG",
+    "Bose", "Epson", "Anker", "Corsair", "ASUS", "WD", "NVIDIA", "Garmin", "Arlo"
+    // Puedes agregar más marcas, productos y categorías según sea necesario
+);
+
 
 // Convertir la pregunta a minúsculas
 $pregunta_minuscula = strtolower($pregunta);
@@ -46,39 +69,30 @@ if ($producto) {
 
     $result = $conexion->query($sql);
 
-    // Verificar si hay resultados
     if ($result->num_rows > 0) {
         echo "<div class='container'>";
         echo "<div class='row'>";
-        echo "<div class='row'>";
-        echo "<div class='col'>";
-        echo "<div class='card' style='width: 18rem;'>";
-      
-        while($row = $result->fetch_assoc()) {
-          //  echo "ID: " . $row["id"]. " - Nombre: " . $row["nombre"]. " - Precio: " . $row["precio"]. "<br>";
-         
-                echo "<div class='col'>";
-                echo "<div class='card' style='width: 18rem;'>";
-                              
-                    echo "<a href='pagina_producto.php?id=" . $row['id'] . "'>"; 
-            
-                echo "<img src='" . $row['imagen'] . "' class='card-img-top img-hover' alt='" . $row['nombre'] . "' style='width: 200px; height: 200px; object-fit: cover;'>";
-                echo "</a>";
-                echo "<div class='card-body'>";
-                echo "<p class='card-text'> <strong>Nombre:</strong> " . $row['nombre'] . "</p>";
-echo "<p class='card-text'> <strong>Precio:</strong> $" . number_format($row['precio'], 2) . " MXN</p>";
-echo "<p class='card-text'> <strong>Disponibles:</strong> " . number_format($row['disponibles']) . "</p>";
-
-                echo "</div></div></div>";
-                    
-        
-    } 
-  // Cerrar la fila
-  echo "</div>";
-}else {
+    
+        while ($row = $result->fetch_assoc()) {
+            echo "<div class='col-md-3'>"; // Use col-md-3 to have 4 columns in a row for medium-sized screens
+            echo "<div class='card' style='width: 18rem;'>";
+            echo "<a href='pagina_producto.php?id=" . $row['id'] . "'>";
+            echo "<img src='" . $row['imagen'] . "' class='card-img-top img-hover' alt='" . $row['nombre'] . "' style='width: 200px; height: 200px; object-fit: cover;'>";
+            echo "</a>";
+            echo "<div class='card-body'>";
+            echo "<p class='card-text'><strong>Nombre:</strong> " . $row['nombre'] . "</p>";
+            echo "<p class='card-text'><strong>Precio:</strong> $" . number_format($row['precio'], 2) . " MXN</p>";
+            echo "<p class='card-text'><strong>Disponibles:</strong> " . number_format($row['disponibles']) . "</p>";
+            echo "</div></div></div>";
+        }
+    
+        echo "</div>"; // Close the row
+        echo "</div>"; // Close the container
+    } else {
         // No se encontraron resultados
         echo "Lo siento, no se encontraron productos que coincidan con tu búsqueda.";
-    }
+    } 
+    
 } else {
     // Respuesta para preguntas sin palabras clave
     echo "Lo siento, no puedo entender tu pregunta. ¿Puedes reformularla?";
