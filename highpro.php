@@ -178,176 +178,33 @@ $conexion->close();
             </div>
         </div>
     </div>
+    <div>
+    <h2>Descubre HighPro Experts: Tu Solución en Ensamblaje y Personalización de Equipos</h2>
+    
+    <p>HighPro Experts ofrece una variedad de servicios diseñados para brindarte la mejor experiencia en ensamblaje y mantenimiento de equipos informáticos. Nuestros expertos se especializan en:</p>
+    
+    <ul>
+        <li>Personalización y asesoramiento en ensambles</li>
+        <li>Ensamblaje profesional</li>
+        <li>Prueba de función y rendimiento de componentes</li>
+        <li>Mantenimiento de equipos</li>
+        <li>Respaldo y clonación</li>
+    </ul>
 
-    <div class="container" id="Rated">
-        <div class="row">
-            <h3 style="text-align: center;">Mejor votados</h3>
+    <p>Nuestro compromiso es garantizar que tu equipo alcance su máximo rendimiento al seleccionar cuidadosamente los mejores componentes. Confía en nosotros para:</p>
+    
+    <ul>
+        <li>Ensamblar tu equipo con expertos conocedores de hardware, programas de trabajo y videojuegos.</li>
+        <li>Utilizar las mejores marcas del mercado con estándares de calidad superiores.</li>
+        <li>Ofrecer garantías de hasta 1 año, con asistencia directa en tramites con la marca posteriormente.</li>
+        <li>Realizar envíos profesionales y seguros a medida para tu equipo.</li>
+        <li>Efectuar rigurosas pruebas de rendimiento para garantizar el óptimo funcionamiento de todos los componentes.</li>
+    </ul>
 
-        </div>
-        <br>
-        <?php
-        // Verificar si hay resultados
-        if ($resultrate->num_rows > 0) {
-            // Iniciar una fila
-            echo "<div class='row'>";
+    <p>Confía en HighPro Experts para adquirir tu equipo y experimenta la diferencia que hacen nuestros expertos en cada detalle.</p>
+</div>
 
-            // Iterar sobre los resultados y mostrar la información en tarjetas
-            while ($row = $resultrate->fetch_assoc()) {
-                echo "<div class='col'>";
-                echo "<div class='card' style='width: 18rem;'>";
-                if (isset($_SESSION['id_user'])) {
-                    echo "<a href='pagina_producto.php?id=" . $row['id'] . "&user_id=" . $_SESSION['id_user'] . "'>";
-
-                } else {
-                    echo "<a href='pagina_producto.php?id=" . $row['id'] . "'>";
-                }
-                echo "<img src='" . $row['imagen'] . "' class='card-img-top img-hover' alt='" . $row['nombre'] . "' style='width: 200px; height: 200px; object-fit: cover;'>";
-                echo "</a>";
-                echo "<div class='card-body'>";
-                echo "<p class='card-text'>" . $row['nombre'] . "</p>";
-                echo "<p class='card-text'> $" . number_format($row['precio'], 2) . " MXN</p>";
-                echo "</div></div></div>";
-            }
-
-            // Cerrar la fila
-            echo "</div>";
-        } else {
-            echo "No se encontraron productos.";
-        }
-        ?>
-
-
-
-    </div>
-    <br><br><br><br><br><br>
-    <div class="container" id="newest">
-        <div class="row">
-            <h3 style="text-align: center;">Más recientes</h3>
-
-        </div>
-        <br>
-        <?php
-        // Verificar si hay resultados
-        if ($result->num_rows > 0) {
-            // Iniciar una fila
-            echo "<div class='row'>";
-
-            // Iterar sobre los resultados y mostrar la información en tarjetas
-            while ($row = $result->fetch_assoc()) {
-                echo "<div class='col'>";
-                echo "<div class='card' style='width: 18rem;'>";
-                if (isset($_SESSION['id_user'])) {
-                    echo "<a href='pagina_producto.php?id=" . $row['id'] . "&user_id=" . $_SESSION['id_user'] . "'>";
-
-                } else {
-                    echo "<a href='pagina_producto.php?id=" . $row['id'] . "'>";
-                }
-                echo "<img src='" . $row['imagen'] . "' class='card-img-top img-hover' alt='" . $row['nombre'] . "' style='width: 200px; height: 200px; object-fit: cover;'>";
-                echo "</a>";
-                echo "<div class='card-body'>";
-                echo "<p class='card-text'>" . $row['nombre'] . "</p>";
-                echo "<p class='card-text'> $" . number_format($row['precio'], 2) . " MXN</p>";
-                echo "</div></div></div>";
-            }
-
-            // Cerrar la fila
-            echo "</div>";
-        } else {
-            echo "No se encontraron productos.";
-        }
-        ?>
-
-
-
-    </div>
-    <script src="bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
-
-    <?php
-    //aqui esta el onboarding!
-    if (isset($_SESSION['id_user'])) {
-        echo <<<HTML
-<script>
-  introJs().setOptions({
-    showProgress: true,
-    steps: [
-      {
-        element: document.querySelector('.intro-target'),
-        title: '¡Bienvenido!',
-        intro: 'Aquí podrás acceder a tu perfil, carrito de compras, historial y cerrar sesión.'
-      },
-      {
-        element: document.querySelector('#chatbotfacil'),
-        intro: 'Nuestro chatbot te mostrará los productos que necesites para compararlos. '
-      },
-     {
-        element: document.querySelector("#rated"),
-        intro: "En esta sección, encontrarás los productos mejor valorados. ¡Descubre lo que aman nuestros clientes!",
-        position: "bottom"
-      },
-      {
-        element: document.querySelector("#newest"),
-        intro: "¿Te gustan las novedades? Aquí puedes explorar los productos más recientes en nuestro catálogo. ¡Siempre algo nuevo por descubrir!",
-        position: "bottom"
-      },
-      {
-        element: 'body',
-        title: '¡Listo para explorar!',
-        intro: 'Gracias por completar nuestro tour. ¡Disfruta de tu experiencia de compra!',
-        position: 'bottom'
-      }
-    ],
-    dontShowAgain: true,
-    prevLabel: 'Atrás',
-    nextLabel: 'Siguiente',
-    doneLabel: 'Terminar'
-  }).start();
-</script>
-HTML;
-
-
-    } else {
-        echo <<<HTML
-        <script>
-          introJs().setOptions({
-            showProgress: true,
-            steps: [
-              {
-                title: "¡Bienvenido a High Pro!",
-                intro: "¡Hola! Estamos emocionados de tenerte aquí. Vamos a guiarte por nuestra página."
-              },
-              {
-                element: document.querySelector('#chatbotfacil'),
-                intro: 'En nuestro chatbot podrás ver productos que se acomodan a tus necesidades.'
-              },
-              
-              {
-                element: document.querySelector("#rated"),
-                intro: "En esta sección, encontrarás los productos mejor valorados. ¡Descubre lo que aman nuestros clientes!",
-                position: "bottom"
-              },
-              {
-                element: document.querySelector("#newest"),
-                intro: "¿Te gustan las novedades? Aquí puedes explorar los productos más recientes en nuestro catálogo. ¡Siempre algo nuevo por descubrir!",
-                position: "bottom"
-              },
-              {
-                element: document.querySelector("#iniciosesion"),
-                intro: "¡Ahora puedes iniciar sesión y explorar aún más!",
-                position: "bottom"
-              }
-            ],
-            dontShowAgain: true,
-            prevLabel: "Atras",
-            nextLabel: "Siguiente",
-            doneLabel: "Terminar"
-          }).start();
-        </script>
-        HTML;
-
-    }
-    ?>
-</body>
+    </body>
 <footer>
     <div class="footer-content">
         <div class="footer-our-store">
@@ -369,20 +226,6 @@ HTML;
 
 
 <style>
-    .img-hover {
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        border: 2px solid transparent;
-        /* Borde transparente por defecto */
-    }
-
-    .img-hover:hover {
-        transform: scale(1.1);
-        width: auto;
-        height: auto;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-color: #92D92D;
-        /* Cambia el color del borde al pasar el mouse */
-    }
 
     footer {
         background-color: #ABC684;
@@ -413,24 +256,7 @@ HTML;
     }
 </style>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Obtener todas las imágenes con la clase img-hover
-        var imgHoverElements = document.querySelectorAll('.img-hover');
 
-        // Agregar un listener para cada imagen
-        imgHoverElements.forEach(function (img) {
-            img.addEventListener('mouseout', function () {
-                // Restablecer el tamaño original y quitar la sombra y el borde al quitar el mouse
-                img.style.transform = 'scale(1)';
-                img.style.width = '200px'; // O el tamaño deseado
-                img.style.height = '200px'; // O el tamaño deseado
-                img.style.boxShadow = 'none';
-                img.style.borderColor = 'transparent'; // Restablecer el color del borde
-            });
-        });
-    });
-</script>
 
 
 </html>
