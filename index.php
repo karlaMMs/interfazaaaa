@@ -81,7 +81,7 @@ $conexion->close();
                     echo "<a class='dropdown-item' href='logout.php'>Cerrar Sesión</a>";
                     echo "</div>";
                     echo "</div>";
-                    
+
                 } else {
                     // Si el usuario no ha iniciado sesión, muestra los botones para registrarse e iniciar sesión
                     echo '<div id="iniciosesion">';
@@ -107,12 +107,12 @@ $conexion->close();
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="#">HIGH PRO EXPERTS</a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="#">PRODUCTOS</a>
                         </li>
-                     
-                        <li class="nav-item">
+
+                        <li class="nav-item" id="chatbotfacil">
                             <a class="nav-link" aria-current="page" href="chatgpt.php">CHATBOT FÁCIL</a>
                         </li>
                     </ul>
@@ -260,28 +260,39 @@ $conexion->close();
     </div>
     <script src="bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
-    
-    <?php
 
+    <?php
+    //aqui esta el onboarding!
     if (isset($_SESSION['id_user'])) {
         echo <<<HTML
 <script>
-  // Función para simular el clic en el botón que activa el dropdown
-  function abrirDropdown() {
-    document.querySelector('.intro-target').click();
-  }
-
   introJs().setOptions({
+    showProgress: true,
     steps: [
       {
         element: document.querySelector('.intro-target'),
-        intro: '¡Hola! Bienvenido a tu menú desplegable personalizado. Aquí puedes acceder a diferentes opciones, como tu perfil, carrito de compras, historial y cerrar sesión.'
+        title: '¡Bienvenido!',
+        intro: 'Aquí podrás acceder a tu perfil, carrito de compras, historial y cerrar sesión.'
       },
-      // Agrega más pasos según sea necesario
       {
-        element: document.querySelector('.intro-target'),
-        intro: 'Haz clic aquí para abrir el menú desplegable.',
-        onbeforeexit: abrirDropdown  // Llama a la función para abrir el dropdown antes de salir del paso
+        element: document.querySelector('#chatbotfacil'),
+        intro: 'Nuestro chatbot te mostrará los productos que necesites para compararlos. '
+      },
+     {
+        element: document.querySelector("#rated"),
+        intro: "En esta sección, encontrarás los productos mejor valorados. ¡Descubre lo que aman nuestros clientes!",
+        position: "bottom"
+      },
+      {
+        element: document.querySelector("#newest"),
+        intro: "¿Te gustan las novedades? Aquí puedes explorar los productos más recientes en nuestro catálogo. ¡Siempre algo nuevo por descubrir!",
+        position: "bottom"
+      },
+      {
+        element: 'body',
+        title: '¡Listo para explorar!',
+        intro: 'Gracias por completar nuestro tour. ¡Disfruta de tu experiencia de compra!',
+        position: 'bottom'
       }
     ],
     prevLabel: 'Atrás',
@@ -291,15 +302,22 @@ $conexion->close();
 </script>
 HTML;
 
+
     } else {
         echo <<<HTML
         <script>
           introJs().setOptions({
+            showProgress: true,
             steps: [
               {
                 title: "¡Bienvenido a High Pro!",
                 intro: "¡Hola! Estamos emocionados de tenerte aquí. Vamos a guiarte por nuestra página."
               },
+              {
+                element: document.querySelector('#chatbotfacil'),
+                intro: 'En nuestro chatbot podrás ver productos que se acomodan a tus necesidades.'
+              },
+              
               {
                 element: document.querySelector("#rated"),
                 intro: "En esta sección, encontrarás los productos mejor valorados. ¡Descubre lo que aman nuestros clientes!",
@@ -323,7 +341,7 @@ HTML;
           }).start();
         </script>
         HTML;
-        
+
     }
     ?>
 </body>
