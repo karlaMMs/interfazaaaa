@@ -1,7 +1,8 @@
 <?php
 include "conexion.php";
 session_start();
-
+$main_color = "#729740";
+#           = "#8eb35a";
 if (isset($_SESSION['id_user'])) {
     $id_user = $_SESSION['id_user'];
 
@@ -79,165 +80,219 @@ $conexion->close();
             background-color: #e9ecef;
             cursor: not-allowed;
         }
-
-        .btn_hp {
-            margin-left: 200px;
-        }
     </style>
 </head>
 
-<body>
-    <!--Nav bar-->
-    <div class="container my-2 justify-content-center">
-        <div class="row">
-            <div class="col-md-3 my-auto d-none d-md-block d-lg-block d-xl-block">
-                <a class="navbar-brand" href="index.php">
-                    <img src="images/LogoNav.png" alt="" width="40%" height="30%">
-                </a>
-            </div>
-            <div class="col-md-6 ">
-                <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="border: 2px solid #8EB25A;">
-                    <button class="btn" type="submit">BUSCAR</button>
-                </form>
-            </div>
-            <div class="col-md-3">
-    <?php
-    if (isset($_SESSION['id_user'])) {
-        // Si el usuario ha iniciado sesión, muestra su nombre y un botón de cerrar sesión
-        echo "<div class='dropdown'>";
-        echo "<a class='btn dropdown-toggle' href='#' role='button' id='dropdownMenuLink' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>¡Hola, $nombre_usuario!</a>";
-        echo "<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>";
-        echo "<a class='dropdown-item' href='perfil.php'>Perfil</a>";
-        echo "<a class='dropdown-item' href='shoppingCart.php'>Carrito</a>";  // Agrega enlaces y ajusta según tus necesidades
-        echo "<a class='dropdown-item' href='historial.php'>Historial</a>"; // Agrega enlaces y ajusta según tus necesidades
-        echo "<div class='dropdown-divider'></div>";
-        echo "<a class='dropdown-item' href='logout.php'>Cerrar Sesión</a>";
-        echo "</div>";
-        echo "</div>";
-    } else {
-        // Si el usuario no ha iniciado sesión, muestra los botones para registrarse e iniciar sesión
-        echo "<a href='register.php'><button class='btn' type='button'>CREA TU CUENTA</button></a>";
-        echo "<a href='login.php'><button class='btn' type='button'>INGRESA</button></a>";
-    }
-    ?>
-</div>
-        </div>
-    </div>
+<body style="display: flex; flex-direction: column; min-height: 100vh; margin: 0;">
+    <div style="flex: 1;">
+        <div class="container-fluid justify-content-center pt-2" style="background-color: <?php echo $main_color ?>;">
+            <div class="row align-items-center ">
+                <div class="col-0 col-md-2  d-none d-md-block d-lg-block d-xl-block ">
+                    <a class="navbar-brand d-flex justify-content-center" href="index.php">
+                        <img src="images/LogoNav.png" alt="" height="30 rem">
+                    </a>
+                </div>
+                <div class="col-md-8 col-12">
+                    <form class="d-flex" method="get" action="resultado.php">
+                        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" id="id_search" name="search">
+                        <button class="btn" type="submit">BUSCAR</button>
+                    </form>
+                </div>
+                <div class="col-md-2">
+                    <?php
+                    if (isset($_SESSION['id_user'])) {
+                        // Si el usuario ha iniciado sesión, muestra su nombre y un botón de cerrar sesión
+                        echo "<div class='dropdown'>";
+                        echo "<a class='btn dropdown-toggle intro-target' href='#' role='button' id='dropdownMenuLink' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>¡Hola, $nombre_usuario!</a>";
+                        echo "<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>";
+                        echo "<a class='dropdown-item' href='perfil.php'>Perfil</a>";
+                        echo "<a class='dropdown-item' href='shoppingCart.php'>Carrito</a>";
+                        echo "<a class='dropdown-item' href='historial.php'>Historial</a>";
+                        echo "<div class='dropdown-divider'></div>";
+                        echo "<a class='dropdown-item' href='logout.php'>Cerrar Sesión</a>";
+                        echo "</div>";
+                        echo "</div>";
 
-    <nav class="navbar navbar-expand-md navbar-light ">
-        <div class="container-fluid justify-content-center mb-2" style="background-color: #ABC684;">
+                    } else {
+                        // Si el usuario no ha iniciado sesión, muestra los botones para registrarse e iniciar sesión
+                        echo '<div id="iniciosesion">';
+                        echo "<a href='register.php'><button class='btn' type='button'>CREA TU CUENTA</button></a>";
+                        echo "<a href='login.php'><button class='btn' type='button'>INGRESA</button></a>";
+                        echo "</div>";
+                    }
+                    ?>
+                </div>
+            </div>
             <div class="row">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">HIGH PRO EXPERTS</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">PC'S LEGA</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">PRODUCTOS</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">COMPONENTES</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">ACCESORIOS</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">CONTACTO</a>
-                        </li>
-                    </ul>
+                <nav class="navbar navbar-expand-md navbar-light ">
+                    <div class="container-fluid justify-content-center" style="">
+                        <div class="row">
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link" aria-current="page" href="highpro.php">HIGH PRO EXPERTS</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" aria-current="page" href="#">PRODUCTOS</a>
+                                    </li>
+
+                                    <li class="nav-item" id="chatbotfacil">
+                                        <a class="nav-link" aria-current="page" href="chatgpt.php">CHATBOT FÁCIL</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!---->
+        <div class="container container-estilo">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-sm-12 registro">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <h1>Perfil</h1>
+                                <div class="col-md-8 col-sm-12 registro">
+                                    <form method="POST" enctype="multipart/form-data" class="registro_form">
+                                        <div class="form-group">
+                                            <label for="id_name"></label>
+                                            <label for="id_email" style="font-weight: bold;">Nombre</label>
+                                            <input type="text" class="dato" id="id_name" name="name_name" placeholder="Nombre(s)" required value="<?php echo $nombre; ?>">
+                                        </div>
+                                        <div>
+                                            <label for="id_lastname"></label>
+                                            <label for="id_email" style="font-weight: bold;">Apellido</label>
+                                            <input type="text" class="dato" id="id_lastname" name="name_lastname" placeholder="Apellido(s)" required value="<?php echo $apellido; ?>">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="id_email" style="font-weight: bold;">Correo Electrónico</label>
+                                            <input type="text" class="dato" id="id_email" name="name_email" placeholder="Correo" disabled required value="<?php echo $correo; ?>" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="id_password" style="font-weight: bold;">Contraseña</label>
+                                            <input type="password" class="dato" id="id_password" placeholder="Contraseña" name="name_password" value="<?php echo $contrasena; ?>">
+                                            <input type="checkbox" id="showPassword"> Mostrar contraseña
+                                        </div>
+                                        <div id="id_pass_req" hidden>
+                                            <p  >La contraseña debe contener lo siguiente:</p>
+                                            <ul >
+                                                <li id="id_req_length">8 caracteres</li>
+                                                <li id="id_req_upper">Una mayúscula</li>
+                                                <li id="id_req_lower">Una minúscula</li>
+                                                <li id="id_req_number">Un número</li>
+                                                <li id="id_req_special">Un carácter especial</li>
+                                            </ul>
+                                        </div>  
+                                        <div class="form-group">
+                                            <label for="id_birthdate"></label>
+                                            <input type="date" class="dato" id="id_birthdate" name="name_birthdate" placeholder="Fecha de Nacimiento " required value="<?php echo $fecha_nacimiento; ?>">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="id_genre"></label>
+                                            <select class="dato" id="id_genre" name="name_genre" required>
+                                                <option disabled selected>Género</option>
+                                                <option value="0" class="opcion" <?php echo ($genero == 0) ? 'selected' : ''; ?>>Femenino</option>
+                                                <option value="1" class="opcion" <?php echo ($genero == 1) ? 'selected' : ''; ?>>Masculino</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col d-flex justify-content-around">
+                                <button id="guardarDatosBtn" class="btn btn_hp mb-2 text-center" type="button">Guardar datos</button>
+                                <button class="btn btn_hp mb-2 text-center" type="button">Borrar perfil</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </nav>
-    <div class="container container-estilo">
-        <div class="row justify-content-center">
-            <div class="col-md-8 col-sm-12 registro">
-    <div class="container">
-        <div class="row">
-            <h1>Perfil</h1>
-
-            <div class="col-md-8 col-sm-12 registro">
-            <form method="POST" enctype="multipart/form-data" class="registro_form">
-    <div class="form-group">
-        <label for="id_name"></label>
-                <label for="id_email" style="font-weight: bold;">Nombre</label>
-
-        <input type="text" class="dato" id="id_name" name="name_name" placeholder="Nombre(s)" required value="<?php echo $nombre; ?>">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <!---->
     </div>
-    <div>
-        <label for="id_lastname"></label>
-        <label for="id_email" style="font-weight: bold;">Apellido</label>
-
-        <input type="text" class="dato" id="id_lastname" name="name_lastname" placeholder="Apellido(s)" required value="<?php echo $apellido; ?>">
-    </div>
-    <div class="form-group">
-        <label for="id_email" style="font-weight: bold;">Correo Electrónico</label>
-        <input type="text" class="dato" id="id_email" name="name_email" placeholder="Correo" disabled required value="<?php echo $correo; ?>" readonly>
-    </div>
-    <div class="form-group">
-        <label for="id_password" style="font-weight: bold;">Contraseña</label>
-        <input type="password" class="dato" id="id_password" placeholder="Contraseña" name="name_password" value="<?php echo $contrasena; ?>">
-        <input type="checkbox" id="showPassword"> Mostrar contraseña
-    </div>
-    <div id="id_pass_req" hidden>
-        <p  >La contraseña debe contener lo siguiente:</p>
-        <ul >
-            <li id="id_req_length">8 caracteres</li>
-            <li id="id_req_upper">Una mayúscula</li>
-            <li id="id_req_lower">Una minúscula</li>
-            <li id="id_req_number">Un número</li>
-            <li id="id_req_special">Un carácter especial</li>
-        </ul>
-    </div>  
    
-    <div class="form-group">
-        <label for="id_birthdate"></label>
-        <input type="date" class="dato" id="id_birthdate" name="name_birthdate" placeholder="Fecha de Nacimiento " required value="<?php echo $fecha_nacimiento; ?>">
-    </div>
-    <div class="form-group">
-        <label for="id_genre"></label>
-        <select class="dato" id="id_genre" name="name_genre" required>
-            <option disabled selected>Género</option>
-            <option value="0" class="opcion" <?php echo ($genero == 0) ? 'selected' : ''; ?>>Femenino</option>
-            <option value="1" class="opcion" <?php echo ($genero == 1) ? 'selected' : ''; ?>>Masculino</option>
-        </select>
-    </div>
-
-</form>
-
-                <!-- Formulario adicional -->
-               
+    
+</body>
+<footer class="">
+    <div class="container py-5">
+        <div class="row" style="display: flex;">
+            <div class="footer-content col-6 text-center">
+                <div class="footer-our-store">
+                    <div class="our-store-info">
+                        <h5>Atención a clientes</h5>
+                        <p>
+                            L-V 10-7pm Sábado 10- 2pm: (33) - 2736 4752
+                            <br>ventas@highpro.com.mx
+                        </p>
+                    </div>
+                </div>
+                <div class="footer-address col-6 text-center">
+                    <h5>Dirección</h5>
+                    <p>Highpro, Av. conchita 3124 C.P. 45086 Col. Loma bonita Residencial Zapopan, Jalisco. México.</p>
+                </div>
+            </div>
+            
+            <div class="footer-copyright col-12">
+                <br>
+                <p> © Copyright 2023 Angel Barbosa, Karla Martínez </p>
             </div>
         </div>
     </div>
-    <form id="procederCompraForm">
-                    <div class="flex-row">
-                        <br>
-                        <div class="d-flex ">
-                            <style>
-                                .btn_hp {
-                                    margin-left: 200px;
-                                }
-                            </style>
+</footer>
+<style>
+    .img-hover {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        border: 2px solid transparent;
+        /* Borde transparente por defecto */
+    }
 
-<button id="guardarDatosBtn" class="btn btn_hp mb-2" type="button">Guardar datos</button>
-                            <button class="btn btn_hp mb-2" type="button">Borrar perfil</button>
+    .img-hover:hover {
+        transform: scale(1.1);
+        width: auto;
+        height: auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-color: #92D92D;
+        /* Cambia el color del borde al pasar el mouse */
+    }
 
-                        </div>
-                    </div>
-                </form>
-    </div>
-    </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-</body>
+    footer {
+        background-color: <?php echo $main_color ?>;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-content {
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+        /* ajusta el ancho según sea necesario */
+        margin: 0 auto;
+        /* centra el contenido horizontalmente */
+    }
+
+    .footer-our-store,
+    .footer-address {
+        width: 48%;
+        /* ajusta el ancho según sea necesario */
+    }
+
+    .footer-copyright {
+        width: 100%;
+        text-align: center;
+
+    }
+</style>
 <script>
         var passwordField = document.getElementById("id_password");
         var showPassword = document.getElementById("showPassword");
