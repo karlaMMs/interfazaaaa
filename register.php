@@ -83,8 +83,7 @@ $conexion->close();
                 <h4>Datos personales</h4>
             </div>
             <div class="col-md-8 col-sm-12 registro">
-                <form  method="POST" enctype="multipart/form-data"  class="registro_form">
-                    
+                <form  method="POST" enctype="multipart/form-data"  class="registro_form" onsubmit="return validate()">
                     <h2 class="mb-4">Ingresa tus datos</h2>
                     <div class="form-group">
                         <label for="id_name"></label>

@@ -186,6 +186,16 @@ $conexion->close();
         <input type="password" class="dato" id="id_password" placeholder="Contraseña" name="name_password" value="<?php echo $contrasena; ?>">
         <input type="checkbox" id="showPassword"> Mostrar contraseña
     </div>
+    <div id="id_pass_req" hidden>
+        <p  >La contraseña debe contener lo siguiente:</p>
+        <ul >
+            <li id="id_req_length">8 caracteres</li>
+            <li id="id_req_upper">Una mayúscula</li>
+            <li id="id_req_lower">Una minúscula</li>
+            <li id="id_req_number">Un número</li>
+            <li id="id_req_special">Un carácter especial</li>
+        </ul>
+    </div>  
    
     <div class="form-group">
         <label for="id_birthdate"></label>
@@ -236,46 +246,56 @@ $conexion->close();
             passwordField.type = showPassword.checked ? "text" : "password";
         });
     </script>
+    <script src="javascript/register.js"></script>
 <script>
     document.getElementById("guardarDatosBtn").addEventListener("click", function() {
         // Aquí va el código que manejará el clic en el botón
-        // Por ejemplo, puedes colocar aquí el código que se mostró en la respuesta anterior
         var nombre = document.getElementById("id_name").value;
         var apellido = document.getElementById("id_lastname").value;
         var contrasena = document.getElementById("id_password").value;
         var fechaNacimiento = document.getElementById("id_birthdate").value;
         var genero = document.getElementById("id_genre").value;
+        if(validatePassword(contrasena))
+        {
+            // Crear un objeto FormData para enviar los datos al servidor
+            var formData = new FormData();
+            formData.append("nombre", nombre);
+            formData.append("apellido", apellido);
+            formData.append("contrasena", contrasena);
+            formData.append("fechaNacimiento", fechaNacimiento);
+            formData.append("genero", genero);
 
-        // Crear un objeto FormData para enviar los datos al servidor
-        var formData = new FormData();
-        formData.append("nombre", nombre);
-        formData.append("apellido", apellido);
-        formData.append("contrasena", contrasena);
-        formData.append("fechaNacimiento", fechaNacimiento);
-        formData.append("genero", genero);
+            // Realizar la solicitud AJAX al servidor
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "guardar_datos.php", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        // Manejar la respuesta del servidor si es necesario
+                        console.log(xhr.responseText);
 
-        // Realizar la solicitud AJAX al servidor
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "guardar_datos.php", true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4) {
-                if (xhr.status == 200) {
-                    // Manejar la respuesta del servidor si es necesario
-                    console.log(xhr.responseText);
+                        // Mostrar un mensaje de alerta indicando que el cambio fue exitoso
+                        alert("Cambio exitoso");
 
-                    // Mostrar un mensaje de alerta indicando que el cambio fue exitoso
-                    alert("Cambio exitoso");
-
-                    // Recargar la página si la respuesta fue exitosa
-                    location.reload();
-                } else {
-                    // Manejar el caso en que la respuesta no fue exitosa
-                    console.error("Error en la solicitud al servidor: " + xhr.status);
+                        // Recargar la página si la respuesta fue exitosa
+                        location.reload();
+                    } else {
+                        // Manejar el caso en que la respuesta no fue exitosa
+                        console.error("Error en la solicitud al servidor: " + xhr.status);
+                    }
                 }
-            }
-        };
-        xhr.send(formData);
+            };
+            xhr.send(formData);
+        }
+        else
+        {
+            document.getElementById("id_password").classList.add("is-invalid");
+            document.getElementById('id_pass_req').hidden = false;
+            console.log("No se pudo guardar la contraseña.");
+        }
+        
     });
+
 </script>
 
 

@@ -2,6 +2,7 @@
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     require_once '../model/user.php';
     require_once '../config/db.php';
+    #require_once '../phpmailer/PHPMailer.php';
 
     $json = json_decode(file_get_contents('php://input'),true);
 
@@ -19,16 +20,5 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $json_response = ["success" => true];
     echo json_encode($json_response);
     exit;
-    #if($user)
-    #{
-        #$json_response["success"] = true;
-        #echo json_encode($json_response);
-        #exit;
-    #} 
-    #else
-    #{
-       #echo json_encode($json_response);
-       #exit;
-    #}
 }
 ?>

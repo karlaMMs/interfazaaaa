@@ -61,9 +61,9 @@ $conexion->close();
                 </a>
             </div>
             <div class="col-md-6 ">
-                <form class="d-flex">
+                <form class="d-flex" method="get" action="resultado.php">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                        style="border: 2px solid #8EB25A;">
+                        style="border: 2px solid #8EB25A;" id="id_search" name="search">
                     <button class="btn" type="submit">BUSCAR</button>
                 </form>
             </div>
@@ -180,86 +180,115 @@ $conexion->close();
     </div>
 
     <div class="container" id="Rated">
-        <div class="row">
-            <h3 style="text-align: center;">Mejor votados</h3>
-
-        </div>
+        <h3 style="text-align: center;">Mejor votados</h3>
+        <div class="row row-cols-4 g-4">
+            
         <br>
         <?php
-        // Verificar si hay resultados
-        if ($resultrate->num_rows > 0) {
-            // Iniciar una fila
-            echo "<div class='row'>";
+                // Verificar si hay resultados
+                if ($resultrate->num_rows > 0) {
+                    // Iniciar una fila
+                    #echo "<div class='row row-cols-1 row-cols-md-4 row-cols- g-4'>";
 
-            // Iterar sobre los resultados y mostrar la información en tarjetas
-            while ($row = $resultrate->fetch_assoc()) {
-                echo "<div class='col'>";
-                echo "<div class='card' style='width: 18rem;'>";
-                if (isset($_SESSION['id_user'])) {
-                    echo "<a href='pagina_producto.php?id=" . $row['id'] . "&user_id=" . $_SESSION['id_user'] . "'>";
-
+                    // Iterar sobre los resultados y mostrar la información en tarjetas
+                    while ($row = $resultrate->fetch_assoc()) {
+                        echo "<div class='col d-inline-flex justify-content-center'>";
+                        echo "<div class='card' style='width: 18rem;'>";
+                        if (isset($_SESSION['id_user'])) {
+                            echo "<a href='pagina_producto.php?id=" . $row['id'] . "&user_id=" . $_SESSION['id_user'] . "' style='color: black; text-decoration: none;'>";
+                            #echo "<a href='pagina_producto.php?id=" . $row['id'] . "&user_id=" . $_SESSION['id_user'] . "'>";
+                        }else{
+                            echo "<a href='pagina_producto.php?id=" . $row['id'] . "' style='color: black; text-decoration: none;'>"; 
+                        }
+                        echo "<img src='" . $row['imagen'] . "' class='card-img-top' alt='" . $row['nombre'] . "' style='height: 18rem; object-fit: contain;'>";
+                        #echo "<img src='" . $row['imagen'] . "' class='card-img-top img-hover' alt='" . $row['nombre'] . "' style='width: 200px; height: 200px; object-fit: cover;'>";
+                        #echo "</a>";
+                        echo "<div class='card-body'>";
+                        echo "<p class='card-text'>" . $row['nombre'] . "</p>";
+                        #echo "<p class='card-text'>" . $row['nombre'] . "</p>";
+                        echo "<h5 class='card-title'>$" . number_format($row['precio'], 2) . "</h5>";
+                        #echo "<p class='card-text'>" . number_format($row['precio'], 2) . "</p>";
+                        echo "<div class='rate-container' style='color: #ABC684'>";
+                        for($i = 0; $i < 5; $i++)
+                        {
+                            if($i < $row['rate'])
+                            {
+                                echo "<i class='fa-solid fa-star'></i>";
+                            }
+                            else
+                            {
+                                echo "<i class='fa-regular fa-star'></i>";
+                            }
+                        }            
+                        echo "</div><br></div></a></div></div>";
+                        #echo "</div></div></div>";
+                    }
+                    // Cerrar la fila
+                    #echo "</div>";
                 } else {
-                    echo "<a href='pagina_producto.php?id=" . $row['id'] . "'>";
+                    echo "No se encontraron productos.";
                 }
-                echo "<img src='" . $row['imagen'] . "' class='card-img-top img-hover' alt='" . $row['nombre'] . "' style='width: 200px; height: 200px; object-fit: cover;'>";
-                echo "</a>";
-                echo "<div class='card-body'>";
-                echo "<p class='card-text'>" . $row['nombre'] . "</p>";
-                echo "<p class='card-text'> $" . number_format($row['precio'], 2) . " MXN</p>";
-                echo "</div></div></div>";
-            }
-
-            // Cerrar la fila
-            echo "</div>";
-        } else {
-            echo "No se encontraron productos.";
-        }
-        ?>
+            ?>
 
 
 
     </div>
-    <br><br><br><br><br><br>
+    <br><br>
     <div class="container" id="newest">
+        <h3 style="text-align: center;">Más recientes</h3>
         <div class="row">
-            <h3 style="text-align: center;">Más recientes</h3>
-
-        </div>
+            
         <br>
         <?php
-        // Verificar si hay resultados
-        if ($result->num_rows > 0) {
-            // Iniciar una fila
-            echo "<div class='row'>";
+                // Verificar si hay resultados
+                if ($result->num_rows > 0) {
+                    // Iniciar una fila
+                    #echo "<div class='row row-cols-1 row-cols-md-4 row-cols- g-4'>";
 
-            // Iterar sobre los resultados y mostrar la información en tarjetas
-            while ($row = $result->fetch_assoc()) {
-                echo "<div class='col'>";
-                echo "<div class='card' style='width: 18rem;'>";
-                if (isset($_SESSION['id_user'])) {
-                    echo "<a href='pagina_producto.php?id=" . $row['id'] . "&user_id=" . $_SESSION['id_user'] . "'>";
-
+                    // Iterar sobre los resultados y mostrar la información en tarjetas
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<div class='col d-inline-flex justify-content-center'>";
+                        echo "<div class='card' style='width: 18rem;'>";
+                        if (isset($_SESSION['id_user'])) {
+                            echo "<a href='pagina_producto.php?id=" . $row['id'] . "&user_id=" . $_SESSION['id_user'] . "' style='color: black; text-decoration: none;'>";
+                            #echo "<a href='pagina_producto.php?id=" . $row['id'] . "&user_id=" . $_SESSION['id_user'] . "'>";
+                        }else{
+                            echo "<a href='pagina_producto.php?id=" . $row['id'] . "' style='color: black; text-decoration: none;'>"; 
+                        }
+                        echo "<img src='" . $row['imagen'] . "' class='card-img-top' alt='" . $row['nombre'] . "' style='height: 18rem; object-fit: contain;'>";
+                        #echo "<img src='" . $row['imagen'] . "' class='card-img-top img-hover' alt='" . $row['nombre'] . "' style='width: 200px; height: 200px; object-fit: cover;'>";
+                        #echo "</a>";
+                        echo "<div class='card-body'>";
+                        echo "<p class='card-text'>" . $row['nombre'] . "</p>";
+                        #echo "<p class='card-text'>" . $row['nombre'] . "</p>";
+                        echo "<h5 class='card-title'>$" . number_format($row['precio'], 2) . "</h5>";
+                        #echo "<p class='card-text'>" . number_format($row['precio'], 2) . "</p>";
+                        echo "<div class='rate-container' style='color: #ABC684'>";
+                        for($i = 0; $i < 5; $i++)
+                        {
+                            if($i < $row['rate'])
+                            {
+                                echo "<i class='fa-solid fa-star'></i>";
+                            }
+                            else
+                            {
+                                echo "<i class='fa-regular fa-star'></i>";
+                            }
+                        }            
+                        echo "</div><br></div></a></div></div>";
+                        #echo "</div></div></div>";
+                    }
+                    // Cerrar la fila
+                    #echo "</div>";
                 } else {
-                    echo "<a href='pagina_producto.php?id=" . $row['id'] . "'>";
+                    echo "No se encontraron productos.";
                 }
-                echo "<img src='" . $row['imagen'] . "' class='card-img-top img-hover' alt='" . $row['nombre'] . "' style='width: 200px; height: 200px; object-fit: cover;'>";
-                echo "</a>";
-                echo "<div class='card-body'>";
-                echo "<p class='card-text'>" . $row['nombre'] . "</p>";
-                echo "<p class='card-text'> $" . number_format($row['precio'], 2) . " MXN</p>";
-                echo "</div></div></div>";
-            }
-
-            // Cerrar la fila
-            echo "</div>";
-        } else {
-            echo "No se encontraron productos.";
-        }
-        ?>
+            ?>
 
 
 
     </div>
+    <br><br>
     <script src="bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
 
@@ -348,24 +377,30 @@ HTML;
     }
     ?>
 </body>
-<footer>
-    <div class="footer-content">
-        <div class="footer-our-store">
-            <div class="our-store-info">
-                <h5>Atención a clientes</h5>
-                <p>L-V 10-7pm Sábado 10- 2pm: (33) - 2736 4752</p>
-                <p>ventas@highpro.com.mx</p>
+<div class="container-fluid">
+    <div class="flex-row">
+    <footer>
+        <div class="footer-content">
+            <div class="footer-our-store">
+                <div class="our-store-info">
+                    <h5>Atención a clientes</h5>
+                    <p>L-V 10-7pm Sábado 10- 2pm: (33) - 2736 4752</p>
+                    <p>ventas@highpro.com.mx</p>
+                </div>
+            </div>
+            <div class="footer-address">
+                <h5>Dirección</h5>
+                <p>Highpro, Av. conchita 3124 C.P. 45086 Col. Loma bonita Residencial Zapopan, Jalisco. México.</p>
             </div>
         </div>
-        <div class="footer-address">
-            <h5>Dirección</h5>
-            <p>Highpro, Av. conchita 3124 C.P. 45086 Col. Loma bonita Residencial Zapopan, Jalisco. México.</p>
+        <div class="footer-copyright">
+            <label> © Copyright 2023 Angel Barbosa, Karla Martínez </label>
         </div>
+    </footer>
     </div>
-    <div class="footer-copyright">
-        <label> © Copyright 2023 Angel Barbosa, Karla Martínez </label>
-    </div>
-</footer>
+    
+</div>
+
 
 
 <style>
@@ -431,6 +466,5 @@ HTML;
         });
     });
 </script>
-
-
+<script src="javascript/"></script>
 </html>
