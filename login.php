@@ -1,43 +1,3 @@
-<?php
-include "conexion.php";
-session_start(); // Inicia la sesión si no está iniciada
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Obtén las credenciales del formulario
-    $email = $_POST["username"];
-    $password = $_POST["password"];
-
-    // Consulta para verificar las credenciales
-    $query = "SELECT id_user FROM users WHERE email = '$email' AND user_password = '$password'";
-    $result = mysqli_query($conexion, $query);
-
-    if ($result) {
-        $num_rows = mysqli_num_rows($result);
-        if ($num_rows == 1) {
-            // Usuario autenticado correctamente
-            $user_data = mysqli_fetch_assoc($result);
-            $_SESSION['id_user'] = $user_data['id_user']; // Guarda el id_user en la sesión
-            echo '<script>alert("Inicio de sesión exitoso");</script>';
-            header("Location: index.php");
-            exit();
-        } else {
-            // Usuario no autenticado, muestra alerta y redirige a la página de inicio de sesión
-            echo '<script>alert("Nombre de usuario o contraseña incorrectos");</script>';
-            header("Location: login.php");
-            exit();
-        }
-    } else {
-        // Manejo de errores, puedes personalizar según tus necesidades
-        echo "Error en la consulta: " . mysqli_error($conexion);
-    }
-
-    // Cierra la conexión a la base de datos
-    mysqli_close($conexion);
-}
-?>
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -49,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
 <body>
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-light" style="background-color: #729740;">
         <div class="container">
           <a class="navbar-brand" href="index.php">
             <img src="images/LogoNav.png" alt="" width="40%" height="30%">
@@ -59,21 +19,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container mt-5 ">
         <div class="row justify-content-center ">
             <div class="col-md-6 col-sm-12 Contenedor">
-                <form class="mx-5" method="post" id="form_login" name="form_login" >
+                <form class="mx-5" method="post" id="form_login" name="form_login">
                     <h1 class="mb-4">Iniciar Sesión</h1>
-                    <div class="form-group">
-                        <label for="username"></label>
-                        <input type="text" id="username" name="username" class="dato"  placeholder="Email" required>
+                    <br>
+                    <div id="id_login_validation" hidden>
+                        <span style="color: red">
+                            Credenciales inválidas.
+                        </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="padding-top:2rem;">
+                        <label for="username"></label>
+                        <input type="email" id="username" name="username" class="dato"  placeholder="Email" required>
+                    </div>
+                    <br>
+                    <div class="form-group" style="padding-top:1rem; padding-bottom:2rem;">
                         <label for="password"></label>
                         <input type="password" id="password" name="password" class="dato" placeholder="Contraseña" required>
                     </div>
                     <br>
-                    <button type="submit" class="btn btn_login">Ingresar</button>
-                    <br><br>
-                    <span>¿Aún no tienes una cuenta? &nbsp;</span>
-                    <a href="register.php">Registrate Aquí</a>
+                    <div class="d-flex justify-content-center" style="flex-direction:column; text-align:center;">
+                        <button type="submit" class="btn btn_login">Ingresar</button>
+                    </div>
+                    <br><br><br>
+                    <span style="color: #494949;">¿Aún no tienes una cuenta? &nbsp;</span>
+                    <a class="link" href="register.php">Registrate Aquí.</a>
                 </form>
             </div>
             
@@ -85,3 +54,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+<?php
+    include "conexion.php";
+    session_start();
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Obtén las credenciales del formulario
+        $email = $_POST["username"];
+        $password = $_POST["password"];
+
+        // Consulta para verificar las credenciales
+        $query = "SELECT id_user FROM users WHERE email = '$email' AND user_password = '$password'";
+        $result = mysqli_query($conexion, $query);
+
+        if ($result) {
+            $num_rows = mysqli_num_rows($result);
+            if ($num_rows == 1) {
+                // Usuario autenticado correctamente
+                $user_data = mysqli_fetch_assoc($result);
+                $_SESSION['id_user'] = $user_data['id_user']; // Guarda el id_user en la sesión
+                header("Location: index.php");
+                exit();
+            } else {
+                // Usuario no autenticado, muestra alerta y redirige a la página de inicio de sesión
+                echo "<script>document.getElementById('id_login_validation').hidden = false;</script>";
+                exit();
+            }
+        } else {
+            // Manejo de errores, puedes personalizar según tus necesidades
+            echo "Error en la consulta: " . mysqli_error($conexion);
+        }
+
+        // Cierra la conexión a la base de datos
+        mysqli_close($conexion);
+    }
+?>

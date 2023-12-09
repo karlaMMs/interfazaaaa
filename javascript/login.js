@@ -1,5 +1,6 @@
 function authLogin()
 {
+    
     const cUsername = document.getElementById("username");
     const cPassword = document.getElementById("password");
     var authResult = false;
@@ -16,11 +17,13 @@ function authLogin()
         {
             if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
             {
+                console.log(xhr.response);
                 let res = JSON.parse(xhr.response);
                 if(res.success != true)
                 {
                     authResult = false;
-                    return;
+                    document.getElementById('id_login_validation').hidden = false;
+                    return false;
                 }
                 window.location.replace("./index.html");
                 authResult = true;

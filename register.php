@@ -64,8 +64,8 @@ $conexion->close();
     <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
 </head>
 <body>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container">
+    <nav class="navbar navbar-light" style="background-color: #729740;">
+        <div class="container" >
           <a class="navbar-brand" href="index.php">
             <img src="images/LogoNav.png" alt="" width="40%" height="30%">
           </a>
@@ -74,79 +74,174 @@ $conexion->close();
     <script src="bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 <body style="background-color: rgb(223, 223, 223)">
-    <div class="container mt-5 Contenedor">
+    <!-- <div class="container mt-5 Contenedor">
 
-        <div class="row ">
-            <div class="col-md-4 col-sm-12 slogan">
-                <h1>Crear Cuenta</h1>
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <div class="container mt-5">
+
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12 slogan">
+                            <h1>Crear Cuenta</h1>
+                            <br>
+                            <h4>Datos personales</h4>
+                        </div>
+                        <div class="col-md-8 col-sm-12 registro">
+                            <form  method="POST" enctype="multipart/form-data"  class="registro_form" onsubmit="return validate()">
+                                <h2 class="mb-4">Ingresa tus datos</h2>
+                                <div class="form-group">
+                                    <label for="id_name"></label>
+                                    <input type="text" class="dato" id="id_name" name="name_name" placeholder="Nombre(s)"required>
+                                </div>
+                                <div>
+                                    <label for="id_lastname"></label>
+                                    <input type="text" class="dato" id="id_lastname" name="name_lastname" placeholder = "Apellido(s)" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_email"></label>
+                                    <input type="email" class="dato" id="id_email" name="name_email" placeholder="Correo" required>
+                                    <?php if ($emailAlreadyExists): ?>
+                                        <p id="id_email_validation" style="color: red; font-weight: bold;">El correo electrónico ya está registrado.</p>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_password"></label>
+                                    <input type="password" class="dato" id="id_password" placeholder="Contraseña" name="name_password" required>
+                                </div>
+                                <div id="id_pass_req" hidden>
+                                    <p  >La contraseña debe contener lo siguiente:</p>
+                                    <ul >
+                                        <li id="id_req_length">8 caracteres</li>
+                                        <li id="id_req_upper">Una mayúscula</li>
+                                        <li id="id_req_lower">Una minúscula</li>
+                                        <li id="id_req_number">Un número</li>
+                                        <li id="id_req_special">Un carácter especial</li>
+                                    </ul>
+                                </div>                                                 
+                                <div class="form-group">
+                                    <label for="id_birthdate"></label>
+                                    <input type="date" class="dato" id="id_birthdate" name="name_birthdate" placeholder="Fecha de Nacimiento " required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_genre"></label>
+                                    <select class="dato" id="id_genre" name="name_genre" required>
+                                        <option disabled selected>Género</option>
+                                        <option value="0" class="opcion">Femenino</option>
+                                        <option value="1" class="opcion">Masculino</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <input type="checkbox" id="id_email_subscription" name="name_email_subscription" >
+                                    <label class="information" for="id_email_subscription">Recibir ofertas de nosotros a su correo electrónico.</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="checkbox" name="name_terms_and_conditions" id="id_terms_and_conditions" required>
+                                    <label class="information" for="id_terms_and_conditions">Acepto los términos y condiciones y la política de privacidad</label>
+                                </div>
+                                <br>
+                                <p class="information">*Para finalizar tu registro completo es necesario que ingreses a tu cuenta, seccion de direcciones y agregues una dirección</p>
+                                <br>
+                                <div class="d-flex justify-content-end">
+                                    <button type="submit" class="btn btn_register" id="id_registerSubmit">Confirmar</button>
+                                </div>
+                                <br><br>
+                                <span>¿Ya tienes una cuenta? &nbsp;</span>
+                                <a href="login.php" style="color: white;">Inicia Sesión</a>
+
+                            </form>
+                        </div>
+                    </div>   
+                </div>
+            </div>
+        </div>
+
+    </div> -->
+
+    <div class="container mt-5">
+
+        <div class="row">
+        <div class="col-md-3">
+        </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="row">
+                    <!-- <div class="col-md-4 col-sm-12 slogan text-center">
+                                <h1>Crear Cuenta</h1>
+                                <br>
+                    </div> -->
+                    <div class="col-md-12 col-sm-12 registro" style="background-color: #ffffff">
+                        <form  method="POST" enctype="multipart/form-data"  class="registro_form" onsubmit="return validate()">
+                            <h1 class="mb-4 text-center" style="color:#494949;">Crea una cuenta nueva</h1>
+                            <h3 class="mb-4 text-center" style="color:#8eb35a;">Ingresa tus datos</h3>
+                            <div class="form-group">
+                                <label for="id_name"></label>
+                                <input type="text" class="dato" id="id_name" name="name_name" placeholder="Nombre(s)"required>
+                            </div>
+                            <div>
+                                <label for="id_lastname"></label>
+                                <input type="text" class="dato" id="id_lastname" name="name_lastname" placeholder = "Apellido(s)" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_email"></label>
+                                <input type="email" class="dato" id="id_email" name="name_email" placeholder="Correo" required>
+                                <?php if ($emailAlreadyExists): ?>
+                                    <p id="id_email_validation" style="color: red; font-weight: bold;">El correo electrónico ya está registrado.</p>
+                                <?php endif; ?>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_password"></label>
+                                <input type="password" class="dato" id="id_password" placeholder="Contraseña" name="name_password" required>
+                            </div>
+                            <div id="id_pass_req" hidden>
+                                <p  >La contraseña debe contener lo siguiente:</p>
+                                <ul >
+                                    <li id="id_req_length">8 caracteres</li>
+                                    <li id="id_req_upper">Una mayúscula</li>
+                                    <li id="id_req_lower">Una minúscula</li>
+                                    <li id="id_req_number">Un número</li>
+                                    <li id="id_req_special">Un carácter especial</li>
+                                </ul>
+                            </div>                                                 
+                            <div class="form-group">
+                                <label for="id_birthdate"></label>
+                                <input type="date" class="dato" id="id_birthdate" name="name_birthdate" placeholder="Fecha de Nacimiento " required>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_genre"></label>
+                                <select class="dato" id="id_genre" name="name_genre" required>
+                                    <option disabled selected>Género</option>
+                                    <option value="0" class="opcion">Femenino</option>
+                                    <option value="1" class="opcion">Masculino</option>
+                                </select>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <input type="checkbox" id="id_email_subscription" name="name_email_subscription" >
+                                <label class="information" for="id_email_subscription">Recibir ofertas de nosotros a su correo electrónico</label>
+                            </div>
+                            <div class="form-group">
+                                <span><input type="checkbox" name="name_terms_and_conditions" id="id_terms_and_conditions" required></span>
+                                <span class="information">Acepto los términos y condiciones y la política de privacidad</span>
+                            </div>
+                            <br>
+                            <p class="information">*Para finalizar tu registro completo es necesario que ingreses a tu cuenta, seccion de direcciones y agregues una dirección</p>
+                            <br>
+                            <div class="d-flex justify-content-center" style="flex-direction:column; text-align:center;">
+                                <button type="submit" class="btn btn_register" id="id_registerSubmit">Confirmar</button>
+                                <br>
+                                <p style="color: #494949;">¿Ya tienes una cuenta? &nbsp;</p>
+                                <span class="link"><a href="login.php" style="color: #50692c;">Inicia Sesión</a><span>
+                            </div>
+                            
+
+
+                        </form>
+                    </div>
+                </div>
                 <br>
-                <h4>Datos personales</h4>
             </div>
-            <div class="col-md-8 col-sm-12 registro">
-                <form  method="POST" enctype="multipart/form-data"  class="registro_form" onsubmit="return validate()">
-                    <h2 class="mb-4">Ingresa tus datos</h2>
-                    <div class="form-group">
-                        <label for="id_name"></label>
-                        <input type="text" class="dato" id="id_name" name="name_name" placeholder="Nombre(s)"required>
-                    </div>
-                    <div>
-                        <label for="id_lastname"></label>
-                        <input type="text" class="dato" id="id_lastname" name="name_lastname" placeholder = "Apellido(s)" required>
-                    </div>
-                    <div class="form-group">
-    <label for="id_email"></label>
-    <input type="email" class="dato" id="id_email" name="name_email" placeholder="Correo" required>
-    <?php if ($emailAlreadyExists): ?>
-        <p id="id_email_validation" style="color: red; font-weight: bold;">El correo electrónico ya está registrado.</p>
-    <?php endif; ?>
-</div>
-                    <div class="form-group">
-                        <label for="id_password"></label>
-                        <input type="password" class="dato" id="id_password" placeholder="Contraseña" name="name_password" required>
-                    </div>
-                    <div id="id_pass_req" hidden>
-                        <p  >La contraseña debe contener lo siguiente:</p>
-                        <ul >
-                            <li id="id_req_length">8 caracteres</li>
-                            <li id="id_req_upper">Una mayúscula</li>
-                            <li id="id_req_lower">Una minúscula</li>
-                            <li id="id_req_number">Un número</li>
-                            <li id="id_req_special">Un carácter especial</li>
-                        </ul>
-                    </div>                                                 
-                    <div class="form-group">
-                        <label for="id_birthdate"></label>
-                        <input type="date" class="dato" id="id_birthdate" name="name_birthdate" placeholder="Fecha de Nacimiento " required>
-                    </div>
-                    <div class="form-group">
-                        <label for="id_genre"></label>
-                        <select class="dato" id="id_genre" name="name_genre" required>
-                            <option disabled selected>Género</option>
-                            <option value="0" class="opcion">Femenino</option>
-                            <option value="1" class="opcion">Masculino</option>
-                        </select>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <input type="checkbox" id="id_email_subscription" name="name_email_subscription" >
-                        <label class="information" for="id_email_subscription">Recibir ofertas de nosotros a su correo electrónico.</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="checkbox" name="name_terms_and_conditions" id="id_terms_and_conditions" required>
-                        <label class="information" for="id_terms_and_conditions">Acepto los términos y condiciones y la política de privacidad</label>
-                    </div>
-                    <br>
-                    <p class="information">*Para finalizar tu registro completo es necesario que ingreses a tu cuenta, seccion de direcciones y agregues una dirección</p>
-                    <br>
-                    <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn_register" id="id_registerSubmit">Confirmar</button>
-                    </div>
-                    <br><br>
-                    <span>¿Ya tienes una cuenta? &nbsp;</span>
-                    <a href="login.php" style="color: white;">Inicia Sesión</a>
-
-                </form>
-            </div>
+        <div class="col-md-3">
+        </div>
         </div>
 
     </div>

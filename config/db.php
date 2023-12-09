@@ -2,7 +2,7 @@
     class db {
         static public function connect() {
             $host = "localhost";
-            $db = "interfaz";
+            $db = "interface";
             $user = "root";
             $pass = "";
             try {

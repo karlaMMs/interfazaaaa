@@ -1,6 +1,9 @@
 <?php
 include "conexion.php";
+include "config/db.php";
 session_start(); 
+$main_color = "#729740";
+#           = "#8eb35a";
 // Verificar si se proporciona el parámetro 'id' en la URL
 
 
@@ -65,77 +68,78 @@ $conexion->close();
     <title>Producto</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/shoppingCart.css">
+    <link rel="stylesheet" type="text/css" href="css/generic.css">
 </head>
-<body>
-    <!--Nav bar-->
-    <div class="container my-2 justify-content-center">
-        <div class="row">
-            <div class="col-md-3 my-auto d-none d-md-block d-lg-block d-xl-block">
-                <a class="navbar-brand" href="index.php">
-                    <img src="images/LogoNav.png" alt="" width="40%" height="30%">
-                </a>
-            </div>
-            <div class="col-md-6 ">
-                <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="border: 2px solid #8EB25A;">
-                    <button class="btn" type="submit">BUSCAR</button>
-                </form>
-            </div>
-            <div class="col-md-3">
-    <?php
-    if (isset($_SESSION['id_user'])) {
-        // Si el usuario ha iniciado sesión, muestra su nombre y un botón de cerrar sesión
-        echo "<div class='dropdown'>";
-        echo "<a class='btn dropdown-toggle' href='#' role='button' id='dropdownMenuLink' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>¡Hola, $nombre_usuario!</a>";
-        echo "<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>";
-        echo "<a class='dropdown-item' href='perfil.php'>Perfil</a>";
-        echo "<a class='dropdown-item' href='shoppingCart.php'>Carrito</a>";  // Agrega enlaces y ajusta según tus necesidades
-        echo "<a class='dropdown-item' href='historial.php'>Historial</a>"; // Agrega enlaces y ajusta según tus necesidades
-        echo "<div class='dropdown-divider'></div>";
-        echo "<a class='dropdown-item' href='logout.php'>Cerrar Sesión</a>";
-        echo "</div>";
-        echo "</div>";
-    } else {
-        // Si el usuario no ha iniciado sesión, muestra los botones para registrarse e iniciar sesión
-        echo "<a href='register.php'><button class='btn' type='button'>CREA TU CUENTA</button></a>";
-        echo "<a href='login.php'><button class='btn' type='button'>INGRESA</button></a>";
-    }
-    ?>
-</div>
-        </div>
-    </div>
+<body style="display: flex; flex-direction: column; min-height: 100vh; margin: 0;">
+    <div style="flex: 1;">
+        <div class="container-fluid justify-content-center pt-2" style="background-color: <?php echo $main_color ?>;">
+            <div class="row align-items-center ">
+                <div class="col-0 col-md-2  d-none d-md-block d-lg-block d-xl-block ">
+                    <a class="navbar-brand d-flex justify-content-center" href="index.php">
+                        <img src="images/LogoNav.png" alt="" height="30 rem">
+                    </a>
+                </div>
+                <div class="col-md-8 col-12">
+                    <form class="d-flex" method="get" action="resultado.php">
+                        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" id="id_search" name="search">
+                        <button class="btn" type="submit">BUSCAR</button>
+                    </form>
+                </div>
+                <div class="col-md-2">
+                    <?php
+                    if (isset($_SESSION['id_user'])) {
+                        // Si el usuario ha iniciado sesión, muestra su nombre y un botón de cerrar sesión
+                        echo "<div class='dropdown'>";
+                        echo "<a class='btn dropdown-toggle intro-target' href='#' role='button' id='dropdownMenuLink' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>¡Hola, $nombre_usuario!</a>";
+                        echo "<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>";
+                        echo "<a class='dropdown-item' href='perfil.php'>Perfil</a>";
+                        echo "<a class='dropdown-item' href='shoppingCart.php'>Carrito</a>";
+                        echo "<a class='dropdown-item' href='historial.php'>Historial</a>";
+                        echo "<div class='dropdown-divider'></div>";
+                        echo "<a class='dropdown-item' href='logout.php'>Cerrar Sesión</a>";
+                        echo "</div>";
+                        echo "</div>";
 
-    <nav class="navbar navbar-expand-md navbar-light ">
-        <div class="container-fluid justify-content-center mb-2" style="background-color: #ABC684;">
-            <div class="row">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">HIGH PRO EXPERTS</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">PC'S LEGA</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">PRODUCTOS</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">COMPONENTES</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">ACCESORIOS</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">CONTACTO</a>
-                        </li>
-                    </ul>
+                    } else {
+                        // Si el usuario no ha iniciado sesión, muestra los botones para registrarse e iniciar sesión
+                        echo '<div id="iniciosesion">';
+                        echo "<a href='register.php'><button class='btn' type='button'>CREA TU CUENTA</button></a>";
+                        echo "<a href='login.php'><button class='btn' type='button'>INGRESA</button></a>";
+                        echo "</div>";
+                    }
+                    ?>
                 </div>
             </div>
+            <div class="row">
+                <nav class="navbar navbar-expand-md navbar-light ">
+                    <div class="container-fluid justify-content-center" style="">
+                        <div class="row">
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link" aria-current="page" href="highpro.php">HIGH PRO EXPERTS</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" aria-current="page" href="#">PRODUCTOS</a>
+                                    </li>
+
+                                    <li class="nav-item" id="chatbotfacil">
+                                        <a class="nav-link" aria-current="page" href="chatgpt.php">CHATBOT FÁCIL</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
         </div>
-    </nav>
+    </div>
     <!--Producto-->
     <div class="container">
         <div class="my-2">
@@ -211,17 +215,61 @@ $conexion->close();
                 <div>
                     <h1>Comentarios</h1>
                 </div>
-                
-                <div class="card rounded">
+                <?php
+                    if (isset($_GET['id']) && isset($_GET['user_id']))
+                    {
+                        $conexion = db::connect();
+                        $producto = $_GET['id'];
+                        $user = $_GET['user_id'];
+                        $consulta = "SELECT (SELECT firstname FROM `users` WHERE id_user = $user) user, mensaje, fecha, producto FROM `comentarios` WHERE producto = $producto;";
+                        #$consulta = "SELECT texto_mensaje, (SELECT U.Username FROM usuario AS U where U.idUsuario = M.autor) AS usuario, fecha_mensaje FROM Mensaje AS M WHERE id_chat = $chat_abierto";
+                        $ejecutar = $conexion->query($consulta);
+                        
+                    } 
+                    while($fila = $ejecutar->fetch_array()):
+                    ?>
+                    <div class="card rounded py-3">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $fila["user"];?></h5>
+                            <p class="card-text"><?php echo $fila["mensaje"];?></p>
+                            <p class="card-text"><small class="text-muted"><?php echo $fila["fecha"];?></small></p>
+                        </div>
+                    </div>
+                    <?php endwhile; ?>
+                <!--div class="card rounded">
                     <div class="card-body">
                         <h5 class="card-title">Autor</h5>
                         <p class="card-text">Comentario</p>
                         <p class="card-text"><small class="text-muted">Fecha</small></p>
                     </div>
-                </div>
+                </div-->
                 <div>
-                    <form class="" role="search">
-                        <input class="form-control my-2" type="search" placeholder="Escribe un comentario..." aria-label="Search">
+                    <form class="" role="search" onsubmit="return publicar_comentario()" id="typing-area"
+                    data-id-usuario="<?php 
+                    
+                    if(isset($_SESSION['id_user']))
+                    {
+                        echo $_SESSION['id_user'];
+                    }
+                    else
+                    {
+                        echo -1;
+                    }
+                    ?>"
+                     data-id-producto="
+                    <?php
+                    if(isset($_GET['id']))
+                    {
+                        echo $_GET['id'];
+                    }
+                    else
+                    {
+                        echo -1;
+                    }
+                    ?>
+                    " 
+                    method="post" enctype="multipart/form-data">
+                        <input id="id_message_body" class="form-control my-2" type="text" placeholder="Escribe un comentario..." aria-label="Search">
                         <button class="btn btn_hp" type="submit">Publicar</button>
                     </form>
                     <br>
@@ -233,7 +281,34 @@ $conexion->close();
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
-
+<footer style="background-color: <?php echo $main_color ?>;">
+    <div class="container py-5">
+        <div class="row" style="display: flex;">
+            <div class="footer-content col-6 text-center">
+                <div class="footer-our-store">
+                    <div class="our-store-info">
+                        <h5>Atención a clientes</h5>
+                        <p>
+                            L-V 10-7pm Sábado 10- 2pm: (33) - 2736 4752
+                            <br>ventas@highpro.com.mx
+                        </p>
+                    </div>
+                </div>
+                <div class="footer-address col-6 text-center">
+                    <h5>Dirección</h5>
+                    <p>Highpro, Av. conchita 3124 C.P. 45086 Col. Loma bonita Residencial Zapopan, Jalisco. México.</p>
+                </div>
+            </div>
+            
+            <div class="footer-copyright col-12">
+                <br>
+                <p> © Copyright 2023 Angel Barbosa, Karla Martínez </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="javascript/comentarios.js"></script>
+<script src="javascript/jquery-3.7.1.min.js"></script>
 <script>
 function agregarAlCarrito(idUsuario, productoID, disponibles) {
     var cantidadSeleccionada = document.getElementById('cantidad').value;

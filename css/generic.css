@@ -1,0 +1,41 @@
+.img-hover {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border: 2px solid transparent;
+    /* Borde transparente por defecto */
+}
+
+.img-hover:hover {
+    transform: scale(1.1);
+    width: auto;
+    height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-color: #92D92D;
+    /* Cambia el color del borde al pasar el mouse */
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    /* ajusta el ancho según sea necesario */
+    margin: 0 auto;
+    /* centra el contenido horizontalmente */
+}
+
+.footer-our-store,
+.footer-address {
+    width: 48%;
+    /* ajusta el ancho según sea necesario */
+}
+
+.footer-copyright {
+    width: 100%;
+    text-align: center;
+
+}

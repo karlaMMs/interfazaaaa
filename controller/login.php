@@ -14,7 +14,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     {
         $json_response["success"] = true;
         session_start();
-        $_SESSION["AUTH"] = (string)$user->getIdUser();
+        $_SESSION['id_user'] = (string)$user->getIdUser();
         echo json_encode($json_response);
         exit;
     } 

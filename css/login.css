@@ -1,19 +1,23 @@
 body{
     background-size: cover; 
     background-repeat: no-repeat; 
-    height: 100vh;
-    animation: mymove 5s infinite;
+    /* height: 100vh;
+    animation: mymove 5s infinite; */
+    background-color: #DFDFDF;
 
 }
 
 .Contenedor{
-    background-color: rgba(255, 255, 255, 0.774);
+    background-color: rgb(255, 255, 255);
     padding-bottom: 1.5rem;
     border-radius: 0.5rem;
     text-align: center;
+    height: 30rem;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.555);
 }
 
-@keyframes mymove {
+
+/* @keyframes mymove {
     0% {
       background-color: #8EB25A;
     }
@@ -26,17 +30,16 @@ body{
     100% {
       background-color: #8EB25A;
     }
-}
+} */
 
 h1{
     padding-top: 1.5rem;
-    color: #494949;
+    color: #8EB25A;
 }
 
 .dato{
-    border-radius: 0.2rem;
-    background-color: white;
-    color:#8EB25A;
+    background-color: transparent;
+    color:#494949;
     display: block;
     width: 100%;
     height: calc(1.5em + .75rem + 2px);
@@ -47,30 +50,37 @@ h1{
     /* color: #495057; */
     /* background-color: #fff; */
     background-clip: padding-box;
-    border: none;
-
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #494949;
     /* border-radius: .25rem; */
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+/*COLORES*/
 .dato:focus {
-    background-color: #C7D9AD;
     outline: none !important;
-    border:none;
-    box-shadow: 0 0 10px rgb(217, 229, 243);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #494949;
   }
 
 
+/*COLORES*/
 ::placeholder{
-    color:#8EB25A;
+    color:#494949;
 }
+
 .dato:focus::placeholder {
-    color: white;
+    color: #8EB25A;
 }
 
 
 .btn_login{
     background-color: #8EB25A;
-    color: rgba(255, 255, 255, 0.884);
+    color: rgb(255, 255, 255);
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 
 }
@@ -79,11 +89,14 @@ h1{
     background-color: #8EB25A;
     color:white;
     filter: brightness(1.2);
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.555);
 }
 
 a{
-    color:rgb(143, 143, 143)
+    color: #50692c;
 }
 a:hover{
-    color:rgb(76, 185, 218)
+    color: #50692c;
+    filter:brightness(1.5);
+    text-shadow: 1px 1px 1px rgba(148, 255, 145, 0.555);
 }
